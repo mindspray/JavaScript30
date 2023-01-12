@@ -37,28 +37,62 @@
     
     // Array.prototype.filter()
     // 1. Filter the list of inventors for those who were born in the 1500's
+    const born1500s = inventors.filter(inventor => inventor.year < 1600 && inventor.year >= 1500);
+    
+    console.log(born1500s);
 
     // Array.prototype.map()
     // 2. Give us an array of the inventors first and last names
+    const fullNames = inventors.map(inventor => `${inventor.first} ${inventor.last}`)
+
+    console.log(fullNames);
 
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
+    const oldestToYoungest = inventors.sort((a, b) => a.year - b.year)
+    console.log(oldestToYoungest);
 
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live all together?
+    const ageTotal = inventors.reduce((acc, cur) => (acc) + (cur.passed - cur.year), 0);
+    console.log(ageTotal);
 
     // 5. Sort the inventors by years lived
+    const orderByAge = inventors.sort((inventorA, inventorB) => (inventorA.passed - inventorA.year) - (inventorB.passed - inventorB.year));
+    console.log(orderByAge);
 
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
-
+    let answer = [...document.querySelectorAll(".CategoryTreeItem > a")].map(item => item.title.slice(9)).filter(item => item.includes("de"));
 
     // 7. sort Exercise
     // Sort the people alphabetically by last name
+    let orderByLastName = people.sort();
+    console.log(orderByLastName);
 
     // 8. Reduce Exercise
     // Sum up the instances of each of these
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
+
+    let sumWords = data.reduce((acc, cur, i) => {
+      if (acc.length === 0) {
+        acc.push([cur, 1]);
+      } else if (data[i-1] !== cur && !acc.flat().some(el => el === cur)) {
+        console.log("first condition ran");
+        acc.push([cur, 1]);
+      } else if (data[i-1] && (data[i-1] === cur || acc.flat().some(el => el === cur))) {
+        console.log("second condition ran");
+        for(let i = 0; i < acc.length; i++) {
+          if (acc[i][0] === cur) {
+            acc[i][1] += 1;
+          }
+        }
+      }
+      return acc;},
+      []);
+
+    console.log(sumWords);
+    // test
 
   </script>
 </body>
